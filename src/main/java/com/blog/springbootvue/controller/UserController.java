@@ -1,27 +1,35 @@
 package com.blog.springbootvue.controller;
 
+import com.blog.springbootvue.common.lang.Result;
+import com.blog.springbootvue.entity.User;
 import com.blog.springbootvue.service.UserService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p>
- *  前端控制器
+ * 用户表 前端控制器
  * </p>
  *
  * @author motong
- * @since 2024-01-27 12:22:38
+ * @since 2024-01-27 03:52:52
  */
 @RestController
 @RequestMapping("/springbootvue/user")
 public class UserController {
     @Autowired
     UserService userService;
-    @GetMapping("/{id}")
-    public Object test(@PathVariable("id") Long id) {
-        return userService.getById(id);
+
+    @RequiresAuthentication
+    @GetMapping("/index")
+    public Result index() {
+        User user = userService.getById(1L);
+        return Result.succ(user);
     }
+    @PostMapping("/save")
+public Object testUser(@Validated @RequestBody User user) {
+    return user.toString();
+}
 }

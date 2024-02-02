@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public class CodeGenerator {
     public static void main(String[] args){
-        FastAutoGenerator.create("jdbc:mysql://localhost:3306/mybatis_plus_db?useUnicode=true&characterEncoding=utf-8", "root", "123456")
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/shiro_test_db?useUnicode=true&characterEncoding=utf-8", "root", "123456")
             .globalConfig(builder -> {
                 builder.author("motong") // 设置作者
                     .enableSwagger() // 开启 swagger 模式
@@ -35,7 +35,7 @@ public class CodeGenerator {
                              System.getProperty("user.dir") + "/src/main/resources/mapper")); // 设置mapperXml生成路径
             })
             .strategyConfig(builder -> {
-                builder.addInclude("t_user") // 设置需要生成的表名
+                builder.addInclude("t_role_permission") // 设置需要生成的表名
                     .addTablePrefix("t_", "c_") // 设置过滤表前缀
                     // Entity 策略配置
                     .entityBuilder()

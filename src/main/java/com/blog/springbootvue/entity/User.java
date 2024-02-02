@@ -3,49 +3,56 @@ package com.blog.springbootvue.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import javax.validation.constraints.NotBlank;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
- *
+ * 用户表
  * </p>
  *
  * @author motong
- * @since 2024-01-27 12:22:38
+ * @since 2024-01-27 03:52:52
  */
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("t_user")
-@ApiModel(value = "User对象", description = "")
+@ApiModel(value = "User对象", description = "用户表")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户主键")
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
-    @ApiModelProperty("用户名字")
+    @ApiModelProperty("姓名")
     private String name;
 
-    @ApiModelProperty("用户年龄")
-    private Integer age;
+    @NotBlank(message = "昵称不能为空")
+    @ApiModelProperty("用户名")
+    private String username;
 
-    @ApiModelProperty("乐观锁")
-    private Integer version;
+    @NotBlank(message = "密码不能为空")
+    @ApiModelProperty("密码")
+    private String password;
 
-    @ApiModelProperty("逻辑删除")
-    private Integer deleted;
+    @ApiModelProperty("手机号")
+    private String phone;
 
-    @ApiModelProperty("创建时间")
-    private LocalDateTime createTime;
+    @ApiModelProperty("性别")
+    private Byte gender;
 
-    @ApiModelProperty("更新时间")
-    private LocalDateTime updateTime;
+    @ApiModelProperty("是否启用（0-未启用；1-启用中）")
+    private Byte enabled;
+
+    @ApiModelProperty("上一次登录时间")
+    private LocalDateTime lastLoginTime;
 }
